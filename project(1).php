@@ -10,8 +10,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=id_card" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=badge" />
-    
-    
     <style>
         html {
             scroll-behavior: smooth;
@@ -84,12 +82,10 @@
         }
 
         .poppins-extrabold-italic {
-            font-family: "Poppins", serif;
-            font-weight: 800;
             font-style: italic;
         }
         .navbar {
-            background-image: linear-gradient(to left, #36D5FF, #0078DA);
+            background-image: linear-gradient(to left, #87A1FF, #00E5FF);
         }
     </style>
 </head>
@@ -100,7 +96,7 @@
             <a class="navbar-brand" href="#">
                 <img class="img-fluid" src="image/logo.svg.png" alt="" height="50" width="50" />
             </a>
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand poppins-bold" href="#">
                 Central Intelligence Agency
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -136,9 +132,11 @@
             <div class="col-md-8 g-1">
                 <p class="bg-body">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ut quam at lorem interdum vehicula. Maecenas tellus ligula, dictum quis vulputate vel, eleifend vitae justo. Vivamus sit amet ipsum orci. Etiam sed diam ornare, faucibus felis id, iaculis libero. Nulla sit amet nulla leo. Donec magna eros, bibendum id nibh viverra, venenatis vehicula magna. Proin bibendum metus velit. Praesent rutrum ligula vel felis ornare ultricies. Sed viverra massa nec efficitur volutpat. Nunc nec urna ac augue porttitor rhoncus vitae facilisis justo. Sed vehicula metus luctus, pulvinar leo ut, sollicitudin turpis. Morbi venenatis maximus enim vel volutpat. Maecenas ultricies, magna non fringilla porttitor, ligula mi semper ligula, ut condimentum dolor ligula eu nisi. Integer lorem dolor, euismod ut rhoncus in, porta at nisl. Nam at euismod urna. Maecenas rutrum ac eros id gravida.
-                    Aenean auctor, metus a rhoncus suscipit, ante tellus viverra felis, eget elementum nisi augue et lorem. Integer vitae mi vestibulum, dignissim est sit amet, iaculis elit. Proin laoreet ante sit amet fermentum convallis. Pellentesque ut egestas risus. Pellentesque porta, quam a luctus egestas, felis ex tincidunt diam, in sagittis leo nisi ornare erat. Morbi convallis eros ac turpis vulputate malesuada. Aliquam egestas, neque accumsan vestibulum ultrices, urna dui varius ligula, ut feugiat nulla leo sed ex. Mauris sed maximus velit. Pellentesque interdum metus nisl, quis interdum nibh malesuada non. Integer fermentum nibh elit, et porttitor sem dignissim et. Suspendisse vitae odio odio. Donec arcu ipsum, auctor vitae magna vel, finibus accumsan velit. Etiam volutpat et erat venenatis luctus.
                     Aliquam erat volutpat. Donec ut dolor pharetra, convallis urna sit amet, ultricies libero. Aenean porttitor tortor a nibh fringilla, nec dignissim felis bibendum. Integer a pellentesque orci. Nulla in pretium nisi, suscipit sollicitudin nibh. Donec ac dolor quis nunc consectetur bibendum eget quis diam. Aliquam erat volutpat.
                 </p>
+                <div>
+                    <canvas id="weatherChart"></canvas>
+                </div>
             </div>
             <div class="col-md-4 g-1">
                 <p class="bg-body">
@@ -440,6 +438,78 @@
                 scales: {
                     r: {
                         beginAtZero: true
+                    }
+                }
+            }
+        });
+        
+        // Diagram data cuaca
+        
+        // Data cuaca: suhu rata-rata, minimum, dan maksimum selama 30 hari
+        const dataSuhuRata = [28, 30, 29, 27, 26, 28, 30, 29, 31, 30, 27, 28, 29, 28, 30, 31, 32, 30, 29, 28, 27, 26, 25, 27, 29, 28, 30, 31, 30, 29];
+        const dataSuhuMin = [25, 27, 26, 24, 23, 25, 27, 26, 28, 27, 24, 25, 26, 25, 27, 28, 29, 27, 26, 25, 24, 23, 22, 24, 26, 25, 27, 28, 27, 26];
+        const dataSuhuMax = [32, 33, 31, 30, 29, 31, 33, 32, 34, 33, 30, 31, 32, 31, 33, 34, 35, 33, 32, 31, 30, 29, 28, 30, 32, 31, 33, 34, 33, 32];
+        
+        // Labels untuk hari (1 - 30)
+        const labels = Array.from({ length: 30 }, (_, i) => `Hari ${i + 1}`);
+
+        // Membuat grafik
+        const ctx2 = document.getElementById('weatherChart').getContext('2d');
+        const weatherChart = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Suhu Rata-Rata (°C)',
+                        data: dataSuhuRata,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 2,
+                        pointRadius: 3,
+                        fill: false
+                    },
+                    {
+                        label: 'Suhu Minimum (°C)',
+                        data: dataSuhuMin,
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 2,
+                        pointRadius: 3,
+                        fill: false
+                    },
+                    {
+                        label: 'Suhu Maksimum (°C)',
+                        data: dataSuhuMax,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderWidth: 2,
+                        pointRadius: 3,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Hari'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Suhu (°C)'
+                        },
+                        min: 20,
+                        max: 40
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
                     }
                 }
             }
