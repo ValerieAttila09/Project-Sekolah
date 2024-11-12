@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Pengaturan</title>
+    <!-- Link ke CSS Bootstrap -->
+    <link href="plugin/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            display: grid;
+        }
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        .offcanvas .nav .nav-link {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 450;
+        }
+        .offcanvas .nav .nav-link:hover {
+            background: rgba(70, 70, 70, 0.5);
+            color: #aaa;
+            font-weight: 400;
+            border-radius: 5px;
+        }
+        .info-box {
+            border-radius: 5px;
+            background: #fff;
+            margin-top: 10px;
+            margin-left: 0;
+            padding: 25px;
+        }
+        #judul1 {
+            font-size: 2.2rem;
+            font-weight: 350;
+        }
+        #judul11 {
+            font-size: 3rem;
+            font-weight: 550;
+        }
+        .main-footer {
+            position: relative;
+            bottom: 0;
+            margin-top: 700px
+            text-align: center;
+            z-index: -1;
+        }
+        .input-group-append {
+            border-bottom-right-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+        .info-box {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            word-wrap: wrap;
+            font-weight: 750;
+            font-size: 1.1rem;
+        }
+        .info-box-content {
+            display: grid;
+        }
+        .info-box-number {
+            font-weight: 500;
+        }
+@media screen and (min-width: 481px) {
+            .info-box {
+                font-size: 1.7rem;
+            }
+            .main-footer {
+                font-size: 1.1rem;
+            }
+            #content {
+                font-size: 1.2rem;
+            }
+            .chart-container .nav-pills {
+                flex-direction: column;
+                width: 90px;
+                margin-right: 35px !important;
+            }
+        }
+@media screen and (max-width: 480px) {
+            .navbar-brand {
+                font-size: 1.1rem;
+            }
+            .info-box {
+                font-size: 0.9rem;
+            }
+            .main-footer {
+                font-size: 0.8rem;
+            }
+            #content {
+                font-size: 0.8rem;
+            }
+            .chart-container .nav-pills {
+                flex-direction: column;
+                width: 90px;
+                margin-right: 10px !important;
+            }
+
+        }
+        /* Kustom lebar offcanvas */
+        .offcanvas-width-50 {
+            width: 50% !important;
+        }
+
+        .offcanvas-width-75 {
+            width: 75% !important;
+        }
+
+        .offcanvas-width-85 {
+            width: 85% !important;
+        }
+        .offcanvas-width-100 {
+            width: 100% !important;
+        }
+        th {
+            text-wrap: pretty;
+        }
+        footer {
+            margin-top: 5rem;
+        }
+        .profile-card {
+            color: #EEEEEE;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #EEEEEE;
+        }
+        .btn-custom {
+            color: #EEEEEE;
+            border: none;
+        }
+        .btn-custom:hover {
+            background-color: #DC5F00;
+            color: #EEEEEE;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <nav class="navbar navbar-expand- navbar-dark bg-dark">
+            <div class="container-fluid">
+                <h1 class="navbar-brand"><i>KRJ</i> <span style="font-size: 2rem; font-weight: 200;">|</span> <span style="font-weight: 400; text-align: center;">Komunitas Rakyat Jelata</span></h1>
+                <button class="btn btn-sidebar" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="offcanvas offcanvas-start border border-dark border-start-0 border-top-0 border-end-0 border-3 bg-dark bg-gradient" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                    <div class="offcanvas-header">
+                        <h3 class="offcanvas-title text-white" id="offcanvasWithBothOptionsLabel">Menu</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a href="#accordionExample" class="nav-link active" aria-current="page">
+                                    <i class="bi bi-shield-shaded me-2"></i>Kebijakan Privasi
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#settingsTabContent" class="nav-link">
+                                    <i class="bi bi-house-door me-2"></i>Dashboard
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#profile" class="nav-link">
+                                    <i class="bi bi-person me-2"></i>Profil
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="bi bi-folder me-2"></i>Proyek
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#security" class="nav-link">
+                                    <i class="bi bi-key-fill me-2"></i>Keamanan
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#notifications" class="nav-link">
+                                    <i class="bi bi-bell me-2"></i>Notifikasi
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        <b>Kebijakan Privasi</b>
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="container my-5">
+                            <h1 class="text-center mb-4">Privacy Policy</h1>
+                            <p>
+                                Terakhir diperbarui: 10 November 2024
+                            </p>
+
+                            <p>
+                                Selamat datang di KRJ | Komunitas Rakyat Jelata! Privasi Anda penting bagi kami. Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi Anda ketika Anda mengunjungi dan menggunakan layanan kami. Mohon luangkan waktu untuk membaca Kebijakan Privasi ini dengan seksama.
+                            </p>
+
+                            <!-- Section 1: Informasi yang Kami Kumpulkan -->
+                            <div class="mb-4">
+                                <h3>1. Informasi yang Kami Kumpulkan</h3>
+                                <p>
+                                    Kami dapat mengumpulkan informasi pribadi dan non-pribadi dari pengguna kami, termasuk:
+                                </p>
+                                <ul>
+                                    <li><strong>Informasi Identitas</strong>: Nama, alamat email, nomor telepon, dan informasi identifikasi lainnya.</li>
+                                    <li><strong>Informasi Aktivitas</strong>: Informasi tentang bagaimana Anda berinteraksi dengan website kami, termasuk halaman yang Anda kunjungi dan fitur yang Anda gunakan.</li>
+                                    <li><strong>Informasi Teknologi</strong>: Alamat IP, jenis perangkat, jenis browser, dan informasi teknis lain yang membantu kami menyediakan layanan terbaik.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Section 2: Bagaimana Kami Menggunakan Informasi Anda -->
+                            <div class="mb-4">
+                                <h3>2. Bagaimana Kami Menggunakan Informasi Anda</h3>
+                                <p>
+                                    Kami menggunakan informasi yang kami kumpulkan untuk berbagai tujuan, termasuk:
+                                </p>
+                                <ul>
+                                    <li>Menyediakan, mengelola, dan meningkatkan layanan kami.</li>
+                                    <li>Menanggapi permintaan atau pertanyaan Anda.</li>
+                                    <li>Mengirimkan pembaruan terkait layanan, termasuk pengumuman penting dan materi promosi jika Anda menyetujui.</li>
+                                    <li>Melakukan analisis untuk memahami penggunaan dan meningkatkan pengalaman pengguna di website kami.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Section 3: Pengungkapan Informasi kepada Pihak Ketiga -->
+                            <div class="mb-4">
+                                <h3>3. Pengungkapan Informasi kepada Pihak Ketiga</h3>
+                                <p>
+                                    Kami tidak akan membagikan informasi pribadi Anda kepada pihak ketiga kecuali:
+                                </p>
+                                <ul>
+                                    <li>Jika diperlukan oleh hukum atau peraturan yang berlaku.</li>
+                                    <li>Dalam hal terjadi merger, akuisisi, atau penjualan aset, di mana informasi Anda mungkin dialihkan sebagai bagian dari proses tersebut.</li>
+                                    <li>Jika kami menggunakan penyedia layanan pihak ketiga untuk membantu dalam menyediakan layanan kami (misalnya, layanan pengiriman email), mereka diwajibkan untuk menjaga privasi informasi Anda.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Section 4: Keamanan Informasi Anda -->
+                            <div class="mb-4">
+                                <h3>4. Keamanan Informasi Anda</h3>
+                                <p>
+                                    Kami menerapkan langkah-langkah keamanan yang wajar untuk melindungi informasi Anda dari akses, penggunaan, atau pengungkapan yang tidak sah. Namun, kami tidak dapat menjamin keamanan mutlak dari setiap informasi yang Anda kirimkan kepada kami.
+                                </p>
+                            </div>
+
+                            <!-- Section 5: Hak Anda -->
+                            <div class="mb-4">
+                                <h3>5. Hak Anda</h3>
+                                <p>
+                                    Anda memiliki hak-hak berikut terkait data pribadi Anda:
+                                </p>
+                                <ul>
+                                    <li><strong>Akses dan Pembaruan</strong>: Anda dapat mengakses atau memperbarui informasi pribadi Anda kapan saja dengan menghubungi kami.</li>
+                                    <li><strong>Penghapusan</strong>: Anda dapat meminta penghapusan informasi pribadi Anda, dan kami akan berupaya memenuhi permintaan tersebut, kecuali jika diperlukan oleh hukum untuk mempertahankannya.</li>
+                                    <li><strong>Penolakan</strong>: Anda dapat menolak penggunaan data pribadi Anda untuk tujuan tertentu, seperti pemasaran.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Section 6: Penggunaan Cookies -->
+                            <div class="mb-4">
+                                <h3>6. Penggunaan Cookies</h3>
+                                <p>
+                                    Kami menggunakan cookies dan teknologi serupa untuk mengumpulkan informasi tentang aktivitas Anda di situs kami. Anda dapat mengatur preferensi cookies Anda melalui pengaturan browser.
+                                </p>
+                            </div>
+
+                            <!-- Section 7: Pembaruan Kebijakan Privasi -->
+                            <div class="mb-4">
+                                <h3>7. Pembaruan Kebijakan Privasi</h3>
+                                <p>
+                                    Kebijakan Privasi ini dapat diperbarui dari waktu ke waktu. Kami akan memberitahu Anda tentang perubahan materi pada Kebijakan Privasi ini dengan memposting kebijakan yang diperbarui di situs web kami. Harap tinjau kebijakan ini secara berkala untuk pembaruan.
+                                </p>
+                            </div>
+
+                            <!-- Section 8: Hubungi Kami -->
+                            <div class="mb-4">
+                                <h3>8. Hubungi Kami</h3>
+                                <p>
+                                    Jika Anda memiliki pertanyaan atau kekhawatiran terkait Kebijakan Privasi ini, jangan ragu untuk menghubungi kami di:
+                                </p>
+                                <p>
+                                    <strong><a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="#">
+                                        valerieattilaalfath@gmail.com
+                                    </a></strong><br>
+                                    <strong>Medan, Indonesia</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mt-5">
+            <!-- Tabs Navigasi -->
+            <ul class="nav nav-underline justify-content-center" id="settingsTab" style="font-size: 0.9rem;">
+                <li class="nav-item">
+                    <button class="nav-link text-black active" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard" type="button" aria-controls="dasboard" aria-selected="true">Dashboard</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link text-black" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" aria-controls="profile" aria-selected="false">Profil</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link text-black" id="security-tab" data-bs-toggle="tab" data-bs-target="#security" type="button" aria-controls="security" aria-selected="false">Keamanan</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link text-black" id="notifications-tab" data-bs-toggle="tab" data-bs-target="#notifications" type="button" aria-controls="notifications" aria-selected="false">Notifikasi</button>
+                </li>
+            </ul>
+
+            <!-- Konten Tab -->
+            <div class="tab-content mt-3" id="settingsTabContent">
+                <!-- Tab Dashboard -->
+                <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                    <div class="container-fluid mt-4 main">
+                        <h1 class="text-center">Dashboard</h1>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="info-box shadow-lg border border-2 border-dark">
+                                    <span class="info-box-icon pastel elevation-1">
+                                        <img class="img-fluid" src="image/pen-tool.png" alt="" height="60" width="60" />
+                                    </span>
+                                    <div class=" info-box-content">
+                                        <span class="info-box-text">Total Artikel</span>
+                                        <span class="info-box-number">
+                                            0
+                                        </span>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                </div>
+                                <div class="info-box shadow-lg border border-2 border-dark">
+                                    <span class="info-box-icon pastel elevation-1">
+                                        <img class="img-fluid" src="image/shopping-cart.png" alt="" height="60" width="60" />
+                                    </span>
+                                    <div class=" info-box-content">
+                                        <span class="info-box-text">Transaksi</span>
+                                        <span class="info-box-number">
+                                            Rp. 9,338,738.00
+                                        </span>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-box shadow-lg border border-2 border-dark">
+                                    <span class="info-box-icon pastel elevation-1">
+                                        <img class="img-fluid" src="image/wallet.png" alt="" height="60" width="60" />
+                                    </span>
+                                    <div class=" info-box-content">
+                                        <span class="info-box-text">Saldo Anda</span>
+                                        <span class="info-box-number">
+                                            Rp. 2,839,689,000.00
+                                        </span>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                </div>
+                                <div class="info-box shadow-lg border border-2 border-dark">
+                                    <span class="info-box-icon pastel elevation-1">
+                                        <img class="img-fluid" src="image/remove.png" alt="" height="60" width="60" />
+                                    </span>
+                                    <div class=" info-box-content">
+                                        <span class="info-box-text">Catatan Kendala</span>
+                                        <span class="info-box-number">
+                                            0
+                                        </span>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="container-fluid" id="content">
+                            <div class="row">
+                                <div class="col-md-12" style="background: #eee ; padding: 15px;">
+                                    <h1 id="judul1">Selamat Datang <br><b id="judul11">Valerie Attila Al-fath</b></h1>
+                                    <br />
+                                    <p style="font-size: 1.6rem">
+                                        Selamat Datang di Wesbite Kami, Kami akan melayani anda sepenuh hati dan setulus hati.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Profil -->
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <h1 class="text-center">Profil</h1>
+                    <h2 class="text-center mb-4">Tentang Saya</h2>
+                    <div class="container my-5 d-flex justify-content-center" id="profileBg">
+                        <div class="profile-card text-center p-4 bg-dark">
+                            <img src="image/python.jpeg" alt="Profile Picture" class="profile-image mb-3" height="150" width="150">
+                            <h3>Valerie Attila Al-fath</h3>
+                            <p class="mb-3">
+                                Hai! Perkenalkan saya Valerie Attila Al-fath, saya seorang pelajar dengan jurusan RPL (<i>Rekayasa Perangkat Lunak</i>). saya sekarang masih mempelajari bahasa pemrograman PHP, dan JS. saya mahir dalam desain web front-end. SALAM KENAL!
+                            </p>
+                            <a href="#" class="btn btn-custom me-2 btn-primary">Portfolio</a>
+                        </div>
+                    </div>
+                    <div class="container my-5">
+                        <h2 class="text-center mb-4">Penghasilan</h2>
+
+                        <div class="chart-container">
+                            <!-- Tab Vertikal -->
+                            <ul class="nav nav-underline mb-3 justify-content-center" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="harian-tab" data-bs-toggle="pill" type="button" onclick="renderChart('harian')">Harian</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="mingguan-tab" data-bs-toggle="pill" type="button" onclick="renderChart('mingguan')">Mingguan</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="bulanan-tab" data-bs-toggle="pill" type="button" onclick="renderChart('bulanan')">Bulanan</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="tahunan-tab" data-bs-toggle="pill" type="button" onclick="renderChart('tahunan')">Tahunan</button>
+                                </li>
+                            </ul>
+
+                            <!-- Area Chart -->
+                            <div class="card flex-fill">
+                                <div class="card-body">
+                                    <canvas id="chartCanvas"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Keamanan -->
+                <div class="tab-pane fade p-2" id="security" role="tabpanel" aria-labelledby="security-tab">
+                    <h1 class="text-center">Keamanan</h1>
+                    <form>
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label">Kata Sandi Saat Ini</label>
+                            <input type="password" class="form-control" id="currentPassword" placeholder="Kata Sandi Saat Ini" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">Kata Sandi Baru</label>
+                            <input type="password" class="form-control" id="newPassword" placeholder="Kata Sandi Baru" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Konfirmasi Kata Sandi Baru</label>
+                            <input type="password" class="form-control" id="confirmPassword" placeholder="Konfirmasi Kata Sandi Baru" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Ubah Kata Sandi</button>
+
+<!--                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Peringatan!</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ERROR! Bidang di atas tidak boleh kosong!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-primary">Coba Lagi</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+                    </form>
+                </div>
+
+                <!-- Tab Notifikasi -->
+                <div class="tab-pane fade p-2" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
+                    <h1 class="text-center">Notifikasi</h1>
+                    <form>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                            <label class="form-check-label" for="emailNotifications">Notifikasi Email</label>
+                        </div>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="smsNotifications">
+                            <label class="form-check-label" for="smsNotifications">Notifikasi SMS</label>
+                        </div>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="pushNotifications" checked>
+                            <label class="form-check-label" for="pushNotifications">Notifikasi Push</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Simpan Pengaturan Notifikasi</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <!-- Kolom Tentang Kami -->
+                <div class="col-md-4">
+                    <h5>Tentang Kami</h5>
+                    <p>
+                        <b>KRJ | Komunitas Rakyat Jelata</b> adalah platform yang berfokus pada [deskripsi singkat tentang website Anda]. Kami berkomitmen untuk memberikan layanan terbaik dan menjaga privasi pengguna kami.
+                    </p>
+                </div>
+                <!-- Kolom Hubungi Kami -->
+                <div class="col-md-4">
+                    <h5>Hubungi Kami</h5>
+                    <p>
+                        Email: <a href="#" class="text-light">valerieattilaalfath@gmail.com</a>
+                    </p>
+                    <p>
+                        Telepon: +62 123 4567 890
+                    </p>
+                    <div class="mt-2">
+                        <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i> Facebook</a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-twitter"></i> Twitter</a>
+                        <a href="#" class="text-light"><i class="bi bi-instagram"></i> Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <hr class="bg-light">
+            <div class="text-center">
+                <p class="mb-0">
+                    &copy; <strong>KRJ | Komunitas Rakyat Jelata </strong> - Semua Hak Dilindungi Undang-undang | 2024
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Link ke JavaScript Bootstrap -->
+    <script type="text/javascript" charset="utf-8">
+        let chart; // Variable untuk menyimpan chart yang aktif
+
+        // Data untuk setiap periode
+        const dataSets = {
+            harian: {
+                labels: ["Senin",
+                    "Selasa",
+                    "Rabu",
+                    "Kamis",
+                    "Jumat",
+                    "Sabtu",
+                    "Minggu"],
+                data: [50,
+                    60,
+                    45,
+                    70,
+                    80,
+                    65,
+                    55],
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)'
+            },
+            mingguan: {
+                labels: ["Minggu 1",
+                    "Minggu 2",
+                    "Minggu 3",
+                    "Minggu 4"],
+                data: [350,
+                    420,
+                    380,
+                    500],
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)'
+            },
+            bulanan: {
+                labels: ["Jan",
+                    "Feb",
+                    "Mar",
+                    "Apr",
+                    "Mei",
+                    "Jun",
+                    "Jul",
+                    "Agu",
+                    "Sep",
+                    "Okt",
+                    "Nov",
+                    "Des"],
+                data: [1500,
+                    1700,
+                    1600,
+                    1800,
+                    2000,
+                    2100,
+                    2200,
+                    2500,
+                    2400,
+                    2600,
+                    2700,
+                    3000],
+                backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                borderColor: 'rgba(153, 102, 255, 1)'
+            },
+            tahunan: {
+                labels: ["2019",
+                    "2020",
+                    "2021",
+                    "2022",
+                    "2023"],
+                data: [18000,
+                    20000,
+                    22000,
+                    24000,
+                    26000],
+                backgroundColor: 'rgba(255, 159, 64, 0.6)',
+                borderColor: 'rgba(255, 159, 64, 1)'
+            }
+        };
+
+        // Fungsi untuk merender chart sesuai periode yang dipilih
+        function renderChart(period) {
+            const ctx = document.getElementById('chartCanvas').getContext('2d');
+
+            // Hapus chart yang sebelumnya jika ada
+            if (chart) {
+                chart.destroy();
+            }
+
+            // Ambil data sesuai dengan periode
+            const selectedData = dataSets[period];
+
+            // Buat chart baru dengan data yang dipilih
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: selectedData.labels,
+                    datasets: [{
+                        label: `Penghasilan ${period.charAt(0).toUpperCase() + period.slice(1)}`,
+                        data: selectedData.data,
+                        backgroundColor: selectedData.backgroundColor,
+                        borderColor: selectedData.borderColor,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Render chart pertama kali (default: harian)
+        renderChart('harian');
+        
+
+    </script>
+    <script src="plugin/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
