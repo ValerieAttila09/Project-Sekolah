@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login Forum</title>
+        <link href="webs/plugin/css/bootstrap.min.css" rel="stylesheet" />
+        <style>
+            /* .login-container {
+                max-width: 400px;
+                margin: 100px auto;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                text-align: center;
+            } */
+            .container-fluid {
+                border-radius: 10px;
+                margin: 100px auto;
+                max-width: 580px;
+                font-size: 1.3rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid border border-2 text-center shadow p-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Login</h2>
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="username" class="form-label"
+                                >Username</label
+                            >
+                            <input
+                                type="text"
+                                id="username"
+                                class="form-control"
+                                placeholder="Masukkan Username"
+                                required
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label"
+                                >Password</label
+                            >
+                            <input
+                                type="text"
+                                id="password"
+                                class="form-control"
+                                placeholder="Masukkan Password"
+                                required
+                            />
+                        </div>
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            onclick="login()"
+                        >
+                            Login
+                        </button>
+                        <p id="statusMessage" class="mt-3"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Data User
+            const users = {
+                valerie: "user[1]"
+            };
+            const password = {
+                ggwp123: "password[1]"
+            };
+
+            // Fungsi Login
+            function login() {
+                const usernameInput = document.getElementById("username").value;
+                const passwordInput = document.getElementById("password").value;
+                const statusMessage = document.getElementById("statusMessage");
+
+                if (users[usernameInput]) {
+                    statusMessage.style.color = "green";
+                    statusMessage.style.fontWeight = "bold";
+                    statusMessage.textContent =
+                        "Login berhasil! Mengarahkan ke halaman...";
+
+                    // Mengarahkan pengguna ke URL tujuan setelah 1 detik
+                    setTimeout(() => {
+                        window.location.href = "webs/index.html"; // Ganti URL dengan URL website Anda
+                    }, 900);
+                } else {
+                    statusMessage.style.color = "red";
+                    statusMessage.style.fontWeight = "bold";
+                    statusMessage.textContent =
+                        "Username tidak ditemukan. Silakan coba lagi.";
+                }
+            }
+        </script>
+
+        <script src="webs/plugin/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
