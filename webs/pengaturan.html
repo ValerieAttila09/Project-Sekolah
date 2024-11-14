@@ -1,0 +1,333 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>KRJ</title>
+        <link
+            rel="shortcut icon"
+            href="image/favicon.ico"
+            type="image/x-icon"
+        />
+        <!-- Link ke CSS Bootstrap -->
+        <link href="plugin/css/bootstrap.min.css" rel="stylesheet" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            body {
+                display: grid;
+            }
+            .navbar {
+                position: sticky;
+                top: 0;
+                z-index: 999;
+            }
+            .offcanvas .nav .nav-link {
+                text-decoration: none;
+                color: #fff;
+                font-weight: 450;
+            }
+            .offcanvas .nav .nav-link:hover {
+                background: rgba(70, 70, 70, 0.5);
+                color: #aaa;
+                font-weight: 400;
+                border-radius: 5px;
+            }
+            .info-box {
+                border-radius: 5px;
+                background: #fff;
+                margin-top: 10px;
+                margin-left: 0;
+                padding: 25px;
+            }
+            #judul1 {
+                font-size: 2.2rem;
+                font-weight: 350;
+            }
+            #judul11 {
+                font-size: 3rem;
+                font-weight: 550;
+            }
+            .main-footer {
+                position: relative;
+                bottom: 0;
+                margin-top: 700px;
+                z-index: -1;
+                text-align: center;
+            }
+            .input-group-append {
+                border-bottom-right-radius: 5px;
+                border-top-right-radius: 5px;
+            }
+            .info-box {
+                display: flex;
+                gap: 25px;
+                align-items: center;
+                word-wrap: wrap;
+                font-weight: 750;
+                font-size: 1.1rem;
+            }
+            .info-box-content {
+                display: grid;
+            }
+            .info-box-number {
+                font-weight: 500;
+            }
+            @media screen and (min-width: 481px) {
+                .info-box {
+                    font-size: 1.7rem;
+                }
+                .main-footer {
+                    font-size: 1.1rem;
+                }
+                #content {
+                    font-size: 1.2rem;
+                }
+                .chart-container .nav-pills {
+                    flex-direction: column;
+                    width: 90px;
+                    margin-right: 35px !important;
+                }
+            }
+            @media screen and (max-width: 480px) {
+                .navbar-brand {
+                    font-size: 1.1rem;
+                }
+                .info-box {
+                    font-size: 0.9rem;
+                }
+                .main-footer {
+                    font-size: 0.8rem;
+                }
+                #content {
+                    font-size: 0.8rem;
+                }
+                .chart-container .nav-pills {
+                    flex-direction: column;
+                    width: 90px;
+                    margin-right: 10px !important;
+                }
+            }
+            /* Kustom lebar offcanvas */
+            .offcanvas-width-50 {
+                width: 50% !important;
+            }
+
+            .offcanvas-width-75 {
+                width: 75% !important;
+            }
+
+            .offcanvas-width-85 {
+                width: 85% !important;
+            }
+            .offcanvas-width-100 {
+                width: 100% !important;
+            }
+            th {
+                text-wrap: pretty;
+            }
+            footer {
+                margin-top: 5rem;
+            }
+            .profile-card {
+                color: #eeeeee;
+                border-radius: 15px;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+            .profile-image {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                border: 4px solid #eeeeee;
+            }
+            .btn-custom {
+                color: #eeeeee;
+                border: none;
+            }
+            .btn-custom:hover {
+                background-color: #dc5f00;
+                color: #eeeeee;
+            }
+            .settings-container {
+                max-width: 600px;
+                margin: 165px auto;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+        </style>
+    </head>
+    <body onload="loadSettings()" id="body">
+        <div id="content">
+            <nav class="navbar navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <h1 class="navbar-brand">
+                        <i>KRJ</i>
+                        <span style="font-size: 2rem; font-weight: 200">|</span>
+                        <span style="font-weight: 400; text-align: center"
+                            >Komunitas Rakyat Jelata</span
+                        >
+                    </h1>
+                    <button
+                        class="btn btn-sidebar"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasWithBothOptions"
+                        aria-controls="offcanvasWithBothOptions"
+                    >
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div
+                        class="offcanvas offcanvas-start border border-dark border-start-0 border-top-0 border-end-0 border-3 bg-dark bg-gradient"
+                        data-bs-scroll="true"
+                        tabindex="-1"
+                        id="offcanvasWithBothOptions"
+                        aria-labelledby="offcanvasWithBothOptionsLabel"
+                    >
+                        <div class="offcanvas-header">
+                            <h3
+                                class="offcanvas-title text-white"
+                                id="offcanvasWithBothOptionsLabel"
+                            >
+                                Menu
+                            </h3>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="offcanvas"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a
+                                        href="index.html"
+                                        class="nav-link active"
+                                        aria-current="page"
+                                    >
+                                        <i class="bi bi-shield-shaded me-2"></i
+                                        >Kebijakan Privasi
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="index.html" class="nav-link">
+                                        <i class="bi bi-house-door me-2"></i
+                                        >Dashboard
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="portofolio.html" class="nav-link">
+                                        <i class="bi bi-person me-2"></i
+                                        >Portofolio
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="projects.html" class="nav-link">
+                                        <i class="bi bi-folder me-2"></i>Proyek
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="bi bi-key-fill me-2"></i>
+                                        Pengaturan
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="container-fluid settings-container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center">Pengaturan</h2>
+
+                    <!-- Pengaturan Tampilan Layar -->
+                    <div class="mb-4">
+                        <h4>Tampilan Layar</h4>
+                        <label for="fontSize" class="form-label"
+                            >Ukuran Teks:</label
+                        >
+                        <select
+                            id="fontSize"
+                            class="form-select"
+                        >
+                            <option value="16px">Kecil</option>
+                            <option value="18px" selected>Sedang</option>
+                            <option value="20px">Besar</option>
+                        </select>
+                        <br>
+                        <label for="fontSize" class="form-label"
+                            >Tema:</label
+                        >
+                        <select
+                            id="theme"
+                            class="form-select"
+                        >
+                            <option value="#fff" selected>Terang</option>
+                            <option value="#ddd">Abu-abu</option>
+                            <option value="333">Gelap</option>
+                        </select>
+                        <!-- Status Pengaturan -->
+                        <p id="statusMessage" class="mt-4 text-center"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="bg-dark text-light py-4">
+            <div class="container">
+                <div class="row">
+                    <!-- Kolom Tentang Kami -->
+                    <div class="col-md-4">
+                        <h5>Tentang Kami</h5>
+                        <p>
+                            <b>KRJ | Komunitas Rakyat Jelata</b> adalah platform
+                            yang berfokus pada [deskripsi singkat tentang
+                            website Anda]. Kami berkomitmen untuk memberikan
+                            layanan terbaik dan menjaga privasi pengguna kami.
+                        </p>
+                    </div>
+                    <!-- Kolom Hubungi Kami -->
+                    <div class="col-md-4">
+                        <h5>Hubungi Kami</h5>
+                        <p>
+                            Email:
+                            <a href="#" class="text-light"
+                                >valerieattilaalfath@gmail.com</a
+                            >
+                        </p>
+                        <p>Telepon: +62 123 4567 890</p>
+                        <div class="mt-2">
+                            <a href="#" class="text-light me-3"
+                                ><i class="bi bi-facebook"></i> Facebook</a
+                            >
+                            <a href="#" class="text-light me-3"
+                                ><i class="bi bi-twitter"></i> Twitter</a
+                            >
+                            <a href="#" class="text-light"
+                                ><i class="bi bi-instagram"></i> Instagram</a
+                            >
+                        </div>
+                    </div>
+                </div>
+                <hr class="bg-light" />
+                <div class="text-center">
+                    <p class="mb-0">
+                        &copy; <strong>KRJ | Komunitas Rakyat Jelata </strong> -
+                        Semua Hak Dilindungi Undang-undang | 2024
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+        <script src="plugin/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
